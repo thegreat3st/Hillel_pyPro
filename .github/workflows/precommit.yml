@@ -1,41 +1,25 @@
-name: black
+name: black, flake, isert
 on: [push, pull_request]
 jobs:
-  linter_name:
-    name: black
+  format:
+    name: formatter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: black formatter
-        uses: rickstaa/action-black@v1
-        id: action_black
+      - uses: rickstaa/action-black@v1
         with:
-          black_args: "."
+          args: ". --check"
+      - uses: actions/checkout@v2
+      - uses: rickstaa/action-flake8@v1
+        with:
+          args: "."
+      - uses: actions/checkout@v2
+      - uses: rickstaa/action-isert@v1
+        with:
+          args: "."    
           
-name: auto-format
-on: pull_request
-jobs:
-  format:
-    # Check if the PR is not from a fork
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-        with:
-          ref: ${{ github.head_ref }}
-      - name: prettier
-        run: npx prettier --write src/**/*.js
-      - name: Check for modified files
-        id: git-check
-        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
-      - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'Peter Evans'
-          git config --global user.email 'peter-evans@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "Automated changes"
-          git push
+          
+
 
 
     
