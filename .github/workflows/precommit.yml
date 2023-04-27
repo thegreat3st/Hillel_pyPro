@@ -10,11 +10,11 @@ jobs:
         with:
           args: ". --check"
       - uses: actions/checkout@v2
-      - uses: rickstaa/action-flake8@v1
+      - uses: betrybe/flake8-linter-action@v*
         with:
           args: "."
       - uses: actions/checkout@v2
-      - uses: rickstaa/action-isert@v1
+      - uses: isort/isort-action@v1
         with:
           args: "."    
           
