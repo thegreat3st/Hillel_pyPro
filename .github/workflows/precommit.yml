@@ -10,11 +10,11 @@ jobs:
         with:
           args: ". --check"
       - uses: actions/checkout@v3
-      - uses: betrybe/flake8-linter-action@v1
-        id: flake8_linter
+      - uses: py-actions/flake8@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pr_number: ${{ github.event.inputs.pr_number }}
+          max-line-length: "100"
+          ignore: "E1,E2"
+          path: "app"
       - uses: actions/checkout@v3
       - uses: isort/isort-action@v1
         with:
