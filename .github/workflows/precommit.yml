@@ -1,19 +1,21 @@
-name: black, flake, isert
+name: black, flake, isort
 on: [push, pull_request]
 jobs:
   format:
     name: formatter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: rickstaa/action-black@v1
         with:
           args: ". --check"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: betrybe/flake8-linter-action@v*
+        id: flake8_linter
         with:
-          args: "."
-      - uses: actions/checkout@v2
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr_number: ${{ github.event.inputs.pr_number }}
+      - uses: actions/checkout@v3
       - uses: isort/isort-action@v1
         with:
           args: "."    
