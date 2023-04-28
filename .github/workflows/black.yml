@@ -11,7 +11,7 @@ jobs:
           black_args: ". --check"
       - uses: py-actions/flake8@v2
         with:
-          flakeargs: "."
+          args: "."
       - uses: isort/isort-action@v1   
           
 
