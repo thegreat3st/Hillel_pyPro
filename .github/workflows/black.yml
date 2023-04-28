@@ -11,9 +11,7 @@ jobs:
           black_args: ". --check"
       - uses: py-actions/flake8@v2
         with:
-          max-line-length: "100"
-          ignore: "E1,E2"
-          path: "app"
+          flakeargs: "."
       - uses: isort/isort-action@v1   
           
 
