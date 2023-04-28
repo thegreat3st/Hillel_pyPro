@@ -1,11 +1,20 @@
-name: black-action
+name: action
 on: [push, pull_request]
 jobs:
   linter_name:
-    name: runner / black formatter
+    name: runner / formatter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: rickstaa/action-black@v1
         with:
           black_args: ". --check"
+      - uses: py-actions/flake8@v2
+        with:
+          max-line-length: "100"
+          ignore: "E1,E2"
+          path: "app"
+      - uses: isort/isort-action@v1   
+          
+
+   
