@@ -19,7 +19,7 @@ jobs:
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
         run: 
-          git commit -am "Auto changes"
+          git commit -m "Auto changes"
           git push
           
 
