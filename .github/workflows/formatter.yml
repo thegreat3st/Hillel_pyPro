@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
-      CI_COMMIT_AUTHOR: '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'  
+      CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} Continuous Integration  
     steps:
       - uses: actions/checkout@v3
       - uses: rickstaa/action-black@v1
@@ -26,7 +26,7 @@ jobs:
         if: env.is-auto-commit == false && github.event_name != 'pull_request'
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "CI_COMMIT_AUTHOR"
+          git config --global user.email "username@users.noreply.github.com"
           git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push
 
