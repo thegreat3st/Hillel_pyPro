@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: rickstaa/action-black@v1
         with:
-          options: "--check --verbose"
+          black_args: ". --check --verbose"
       - uses: py-actions/flake8@v2
         with:
           args: "."
