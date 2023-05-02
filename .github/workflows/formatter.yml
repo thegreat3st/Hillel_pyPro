@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: rickstaa/action-black@v2
+      - uses: rickstaa/action-black@v1
         with:
           black_args: "--check --verbose"
       - uses: py-actions/flake8@v2
@@ -18,7 +18,7 @@ jobs:
         run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
-        run: |
+        run: 
           git commit -am "Auto changes"
           git push
           
