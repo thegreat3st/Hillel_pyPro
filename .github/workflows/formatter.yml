@@ -8,16 +8,19 @@ jobs:
       CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} Continuous Integration  
     steps:
+      - name: checks
       - uses: actions/checkout@v3
+      - name: black
       - uses: rickstaa/action-black@v1
         with:
           black_args: "."
+      - name: flake8
       - uses: py-actions/flake8@v2
         with:
           ignore: "F401"
           max-line-length: "100"
-      - name: Run isort
-        uses: olance/isort-action@v1.0.0
+      - name: isort
+        uses: isort/isort-action@v1
         with:
           args: "."   
       - name: Check for modified files
