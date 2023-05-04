@@ -19,7 +19,7 @@ jobs:
           ignore: "F401"
           max-line-length: "100"
 
-      - uses: isort/isort-action@v1
+      - uses: isort --recursive/isort-action@v1
       
       - name: Check for modified files
         id: git-check
