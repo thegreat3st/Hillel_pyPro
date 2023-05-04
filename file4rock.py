@@ -1,5 +1,5 @@
-from pympler import asizeof 
 from gg import mapath, file_name
+from pympler import asizeof 
 
 def find_in_file (pattern: str):
     with open(mapath,'r+') as file:
