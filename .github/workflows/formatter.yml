@@ -14,7 +14,11 @@ jobs:
           black_args: "."
       - uses: py-actions/flake8@v2
         with:
-          args: "."
+          ignore: "F401"
+          exclude: "src/ignoreme.py"
+          max-line-length: "100"
+          path: "src"
+          plugins: "flake8-bugbear==22.1.11 flake8-black"
       - uses: isort/isort-action@v1   
       - name: Check for modified files
         id: git-check
