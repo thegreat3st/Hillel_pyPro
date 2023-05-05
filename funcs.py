@@ -3,7 +3,7 @@ import pyinputplus as pyip
 def nameinpfunc():
     while True:
         nameinp = pyip.inputStr("Enter a player name: ")
-        if any(char.isdigit() for char in nameinp) == False:
+        if any(char.isdigit() for char in nameinp) is False:
             return nameinp
         else:
             print(ValueError)
