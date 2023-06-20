@@ -19,10 +19,6 @@ class Post:
     
     def __str__ (self) :
         return f"Post: {self.channel}: {self.message}"
-
-def increment(n):
-    n += 1
-    return n
     
 class SocialChannel(ABC):
     
@@ -54,6 +50,7 @@ class SocialChannel(ABC):
         if main:
             id_ += i
         return id_
+        
 class post_to_youtube(SocialChannel):
 
     def get_channel(self, channel: str):
