@@ -158,8 +158,7 @@ class BankAccount(Price):
         if self._currency == other._currency:
             self._balance -= amount
             other._balance += amount
-            print(f"\n Your Available Balance=", self._balance, self._currency)
-            print(f"\n Usyk's Available Balance=", other._balance, other._currency)
+            BankAccount.display(self, other)
         else: 
             print("Your currency is differ from Usyk's, do CONVERT")
     
