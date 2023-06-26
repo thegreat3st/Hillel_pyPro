@@ -70,8 +70,11 @@ def main():
     
     try:
         mul = multi("rockyou.txt", "https://picsum.photos/1000/1000")
-        
-        print(f"Time taken for encryption task: {mul.encryption_counter()}, I/O-bound task: {mul.download_counter()}, Total: {mul.total()} seconds")
+        dict = {"Time taken for encryption task": mul.encryption_counter(),
+                "I/O-bound task": mul.download_counter(),
+                "Total" : mul.total()
+        }
+        print(f"{dict}")
     except Exception as e:
         print(f"Error occurred: {e}")
         
