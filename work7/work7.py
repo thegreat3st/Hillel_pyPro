@@ -4,7 +4,6 @@ import requests
 import threading
 from threading import Thread
 import time
-from dataclasses import dataclass
 
 class multi():
     
