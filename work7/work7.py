@@ -26,7 +26,7 @@ class multi():
     def download_image(self):
         print(f"Downloading image from {self._image_url} in thread {threading.current_thread().name}")
         res = requests.get(self._image_url, stream=True)
-        filename = f"{self._image_url.split('/')[-3]}.jpg"
+        filename = f"{self._image_url.split('/')[-3]}.jpg" # image.jpg
         with open(filename, 'wb') as f:
             for block in res.iter_content(1024):
                 f.write(block)
