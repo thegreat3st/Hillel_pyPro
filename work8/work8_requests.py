@@ -1,9 +1,7 @@
-import httpx
-import asyncio
-import time
 import asyncio
 from pprint import pprint
-# import requests
+import requests
+from time import perf_counter
 
 class ExchangeRates():
     _instance = None
@@ -27,9 +25,8 @@ class ExchangeRates():
         while n<=5:
             for currency1 in self._currency[:]:
                 url = f"https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency={currency1}&apikey=PASTE_YOUR_API_KEY"
-                async with httpx.AsyncClient() as client:
-                    response = await client.get(url)
-                    pprint(response.json())
+                response = await asyncio.to_thread(requests.get, (url))
+                pprint(response.json()) 
             break
         
 async def main():
@@ -39,12 +36,8 @@ async def main():
     await asyncio.gather(*tasks)
     
 if __name__ == "__main__":
-    print("Running asynchronously...")
-    start = time.perf_counter()
+    start = perf_counter()
     asyncio.run(main())
-    end = time.perf_counter()
+    end = perf_counter()
 
     print(f"⏲️ Total time: {end-start}")
-
-
-
