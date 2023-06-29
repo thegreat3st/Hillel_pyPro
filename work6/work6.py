@@ -149,8 +149,8 @@ class BankAccount(Price):
             BankAccount.print_info_bal(self)
             
     def display(self, other):
-        print(f"\n Your Net Available Balance: ", self._balance, self._currency)
-        print(f"\n Usyk's Net Available Balance: ", other._balance, other._currency)
+        print("\n Your Net Available Balance: ", self._balance, self._currency)
+        print("\n Usyk's Net Available Balance: ", other._balance, other._currency)
         
     def transfer(self, other):
         amount: Price = float(input("Enter amount for transfer: "))
