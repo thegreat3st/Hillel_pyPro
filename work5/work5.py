@@ -86,7 +86,7 @@ class post_to_youtube(SocialChannel):
     def process_schedule(self):
         curr = time.time()
         timestamp = time.ctime(curr)
-        print(f"Posted at", timestamp) 
+        print("Posted at", timestamp) 
     
 class post_to_facebook(SocialChannel):
 
@@ -123,7 +123,7 @@ class post_to_facebook(SocialChannel):
     def process_schedule(self):
         curr = time.time()
         timestamp = time.ctime(curr)
-        print(f"Posted at", timestamp) 
+        print("Posted at", timestamp) 
     
 class post_to_twitter(SocialChannel):
 
@@ -160,7 +160,7 @@ class post_to_twitter(SocialChannel):
     def process_schedule(self):
         curr = time.time()
         timestamp = time.ctime(curr)
-        print(f"Posted at", timestamp) 
+        print("Posted at", timestamp) 
 
 class UploadingProcessor:
     def __init__(self, soc_media: SocialChannel):
