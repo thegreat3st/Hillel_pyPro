@@ -2,7 +2,6 @@ import httpx
 import asyncio
 import time
 from pprint import pprint
-# import requests
 
 class ExchangeRates():
     _instance = None
