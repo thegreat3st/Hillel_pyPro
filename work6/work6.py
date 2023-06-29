@@ -4,70 +4,75 @@ from dataclasses import dataclass
 from abc import ABC
 import re
 
+
 @dataclass
 class Price(ABC):
     def __init__(self, balance: float, currency: str) -> None:
         self._balance: float = balance
         self._currency: str = currency
-        
+
     def getter_eur(self):
         self._currency = "EUR"
         return self._currency
-    
+
     def getter_dol(self):
         self._currency = "USD"
         return self._currency
-    
+
     def getter_uah(self):
         self._currency = "UAH"
         return self._currency
-    
+
     @staticmethod
     def curr2(self):
-        currency = input(f"Choose cuurency to convert to: [{Price.getter_eur(self)}, {Price.getter_dol(self)}, {Price.getter_uah(self)}]\n")
+        currency = input(
+            f"Choose cuurency to convert to: [{Price.getter_eur(self)}, {Price.getter_dol(self)}, {Price.getter_uah(self)}]\n"
+        )
         return currency
 
+
 class euro(Price):
-    
     def tax_dol(balance: float):
         return balance * 1.09
-    
+
     def tax_uah(balance: float):
         return balance * 40.5
 
+
 class dollar(Price):
-    
     def tax_eur(balance: float):
         return balance * 0.91
-    
+
     def tax_uah(balance: float):
         return balance * 36.93
-    
+
+
 class ghrivni(Price):
-    
     def tax_eur(balance: float):
-        return balance * (25*(10**-3))
-    
+        return balance * (25 * (10**-3))
+
     def tax_dol(balance: float):
-        return balance * (27*(10**-3))
+        return balance * (27 * (10**-3))
+
 
 class BankAccount(Price):
-    
     def __init__(self, first_name, last_name, phone_number, balance, currency):
         self._first_name = first_name
         self._last_name = last_name
         self._phone_number = phone_number
         self._balance = balance
         self._currency = currency
-    
+
     @staticmethod
     def first_n():
         first_name = str(input("Yr first name?\n"))
-        return first_name   
+        return first_name
+
     @staticmethod
     def last_n():
         last_name = str(input("Yr last name?\n"))
-        return last_name   
+        return last_name
+
     @staticmethod
     def phonenum():
         pattern = re.compile(r"^\+?3?8?(0[\s\.-]\d{2}[\s\.-]\d{3}[\s\.-]\d{4})$")
@@ -79,20 +84,21 @@ class BankAccount(Price):
 
     def deposit(self):
         amount: Price = float(input("Enter amount for dep "))
-        self._balance += amount 
+        self._balance += amount
         print("\n Amount Deposited:", amount, self._currency)
-    
-    def _send_callback_api (self, token: str):
-        print (f"Your deposit token: \n {token}")
-    def _get_token (self):
+
+    def _send_callback_api(self, token: str):
+        print(f"Your deposit token: \n {token}")
+
+    def _get_token(self):
         return uuid.uuid4()
-    
-    def authorize (self) -> bool:
+
+    def authorize(self) -> bool:
         time.sleep(4)
         token = self._get_token()
         self._send_callback_api(token)
         return True
-        
+
     def withdraw(self):
         amount: Price = float(input("Enter amount for Withdraw: "))
         time.sleep(3)
@@ -101,55 +107,54 @@ class BankAccount(Price):
             print("\n You Withdrew: ", amount, self._currency)
         else:
             print("\n Insufficient balance ")
-            
+
     def get_balance(self):
         return self._balance
-            
-    def checker(self):
 
+    def checker(self):
         macurr1 = self._currency
         macurr2 = Price.curr2(self)
-        if (macurr1 == "EUR" )&(macurr2 == "EUR"):
-            print(f"{macurr1} to {macurr2} = {macurr1}") 
+        if (macurr1 == "EUR") & (macurr2 == "EUR"):
+            print(f"{macurr1} to {macurr2} = {macurr1}")
             self._currency = Price.getter_eur(self)
             BankAccount.print_info_bal(self)
-        if (macurr1 == "USD" )&(macurr2 == "USD"):
-            print(f"{macurr1} to {macurr2} = {macurr1}") 
+        if (macurr1 == "USD") & (macurr2 == "USD"):
+            print(f"{macurr1} to {macurr2} = {macurr1}")
             self._currency = Price.getter_dol(self)
             BankAccount.print_info_bal(self)
-        if (macurr1 == "UAH" )&(macurr2 == "UAH"): 
-            print(f"{macurr1} to {macurr2} = {macurr1}") 
+        if (macurr1 == "UAH") & (macurr2 == "UAH"):
+            print(f"{macurr1} to {macurr2} = {macurr1}")
             self._currency = Price.getter_uah(self)
             BankAccount.print_info_bal(self)
-        if (macurr1 == "EUR" )&(macurr2 == "USD"):
+        if (macurr1 == "EUR") & (macurr2 == "USD"):
             self._currency = Price.getter_dol(self)
-            self._balance = euro.tax_dol(BankAccount.get_balance(self)) 
+            self._balance = euro.tax_dol(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-        if (macurr1 == "EUR" )&(macurr2 == "UAH"): 
+        if (macurr1 == "EUR") & (macurr2 == "UAH"):
             self._currency = Price.getter_uah(self)
             self._balance = euro.tax_uah(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-        if (macurr1 == "USD" )&(macurr2 == "EUR"):
+        if (macurr1 == "USD") & (macurr2 == "EUR"):
             self._currency = Price.getter_eur(self)
             self._balance = dollar.tax_eur(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-        if (macurr1 == "USD" )&(macurr2 == "UAH"):
-            self._currency = Price.getter_uah(self) 
+        if (macurr1 == "USD") & (macurr2 == "UAH"):
+            self._currency = Price.getter_uah(self)
             self._balance = dollar.tax_uah(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-        if (macurr1 == "UAH" )&(macurr2 == "EUR"): 
+        if (macurr1 == "UAH") & (macurr2 == "EUR"):
             self._currency = Price.getter_eur(self)
             self._balance = ghrivni.tax_eur(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-        if (macurr1 == "UAH" )&(macurr2 == "USD"): 
+        if (macurr1 == "UAH") & (macurr2 == "USD"):
             self._currency = Price.getter_dol(self)
             self._balance = ghrivni.tax_dol(BankAccount.get_balance(self))
             BankAccount.print_info_bal(self)
-            
+
     def display(self, other):
         print("\n Your Net Available Balance: ", self._balance, self._currency)
         print("\n Usyk's Net Available Balance: ", other._balance, other._currency)
-        
+
     def transfer(self, other):
         amount: Price = float(input("Enter amount for transfer: "))
         time.sleep(3)
@@ -157,20 +162,20 @@ class BankAccount(Price):
             self._balance -= amount
             other._balance += amount
             BankAccount.display(self, other)
-        else: 
+        else:
             print("Your currency is differ from Usyk's, do CONVERT")
-    
+
     def print_info_bal(self):
         first = self._first_name
         last = self._last_name
         num = self._phone_number
-        balance = "%.2f" %self._balance, self._currency
+        balance = "%.2f" % self._balance, self._currency
         s = f"{first} {last}, {num}, acc balance: {balance}"
-        
+
         print(s)
 
+
 def main():
-    
     first_name: BankAccount = BankAccount.first_n()
     last_name: BankAccount = BankAccount.last_n()
     phone_number: BankAccount = BankAccount.phonenum()
@@ -180,7 +185,7 @@ def main():
 
     p1.print_info_bal()
     p2.print_info_bal()
-    
+
     options = ["deposit", "withdraw", "convert", "display", "transfer", "exit"]
     true = True
     while true:
@@ -202,9 +207,10 @@ def main():
                     break
         except Exception:
             print("No option like that")
-            
+
     p1.print_info_bal()
     p2.print_info_bal()
-    
+
+
 if __name__ == "__main__":
     main()
