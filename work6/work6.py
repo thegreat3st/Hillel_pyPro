@@ -202,8 +202,8 @@ def main():
                     p1.transfer(p2)
                 case "exit":
                     break
-        except:
-            raise Exception("No option like that")
+        except Exception:
+            print("No option like that")
             
     p1.print_info_bal()
     p2.print_info_bal()
