@@ -1,7 +1,6 @@
 import httpx
 import asyncio
 import time
-import asyncio
 from pprint import pprint
 # import requests
 
